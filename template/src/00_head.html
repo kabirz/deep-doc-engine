@@ -1,0 +1,199 @@
+<style>
+/* ============ 全局 ============ */
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: #eef0f4; color: #24292f;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  font-size: 15px; line-height: 1.75;
+}
+code, pre, kbd { font-family: Consolas, "Microsoft YaHei", monospace; }
+a { color: #4f6af0; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ============ 侧边栏（仅屏幕） ============ */
+.sidebar {
+  position: fixed; left: 0; top: 0; bottom: 0; width: 296px;
+  background: #ffffff; border-right: 1px solid #d8dde5;
+  display: flex; flex-direction: column; z-index: 20;
+}
+.sb-head { padding: 18px 18px 12px; border-bottom: 1px solid #e6e9ef; }
+.sb-head .t { font-size: 17px; font-weight: 700; color: #1e3a8a; letter-spacing: .5px; }
+.sb-head .s { font-size: 12px; color: #6b7280; margin-top: 3px; }
+.sb-nav { overflow-y: auto; flex: 1; padding: 8px 0 24px; }
+.sb-part { margin: 12px 14px 2px; font-size: 12px; font-weight: 700; color: #8a93a5;
+  text-transform: uppercase; letter-spacing: 1px; }
+.sb-nav a.ch {
+  display: block; margin: 1px 8px; padding: 6px 10px; border-radius: 7px;
+  font-size: 13px; color: #374151; line-height: 1.45;
+}
+.sb-nav a.ch:hover { background: #eef2ff; text-decoration: none; }
+.sb-nav a.ch.cur { background: #4f6af0; color: #fff; font-weight: 600; }
+.sb-nav a.apx { color: #6d28d9; }
+
+/* ============ 正文卡片 ============ */
+.wrap { margin-left: 296px; }
+.topbar {
+  position: sticky; top: 0; z-index: 10; display: flex; gap: 10px; align-items: center;
+  padding: 10px 26px; background: rgba(238,240,244,.92); backdrop-filter: blur(6px);
+  border-bottom: 1px solid #dfe3ea; font-size: 13px; color: #6b7280;
+}
+.topbar b { color: #1e3a8a; font-size: 14px; }
+.content {
+  max-width: 960px; margin: 26px auto 80px; padding: 46px 58px 60px;
+  background: #ffffff; border-radius: 12px; border: 1px solid #e2e6ee;
+  box-shadow: 0 1px 3px rgba(30,40,60,.06), 0 8px 28px rgba(30,40,60,.05);
+}
+
+/* ============ 标题 ============ */
+h2.ch {
+  font-size: 25px; line-height: 1.35; color: #111827; margin: 0 0 6px;
+  padding: 14px 18px 12px; border-radius: 10px;
+  background: linear-gradient(135deg, #eef2ff 0%, #e8f9f1 100%);
+  border: 1px solid #dbe3f8; border-left: 6px solid #4f6af0;
+}
+h2.ch .no { color: #4f6af0; margin-right: 6px; }
+h2.ch.apx { border-left-color: #8b5cf6; background: linear-gradient(135deg,#f3f0ff,#fdf4ff); }
+h2.ch.apx .no { color: #7c3aed; }
+h3 { font-size: 19px; color: #1e3a8a; margin: 34px 0 10px; padding-bottom: 6px;
+  border-bottom: 2px solid #e8ecf4; }
+h4 { font-size: 16px; color: #374151; margin: 24px 0 8px; }
+p.lead { color: #475569; font-size: 15.5px; background:#f8fafc; border-left:4px solid #93c5fd;
+  padding: 10px 16px; border-radius: 0 8px 8px 0; margin: 14px 0 8px; }
+p { margin: 10px 0; }
+strong { color: #111827; }
+.src-ref { font-size: 12.5px; color: #6b7280; margin-top: -6px; }
+.src-ref code { color: #7c3aed; background: #f5f3ff; padding: 1px 5px; border-radius: 4px; }
+
+/* ============ 行内代码 ============ */
+p code, li code, td code, th code, div code, figcaption code, h3 code, h4 code {
+  background: #f1f3f9; border: 1px solid #e2e6f0; color: #b3305c;
+  padding: 1px 5px; border-radius: 5px; font-size: .88em; white-space: normal;
+}
+kbd { background:#f8fafc; border:1px solid #cbd5e1; border-bottom-width:2px;
+  border-radius:5px; padding:0 6px; font-size:.85em; color:#334155; }
+
+/* ============ Dracula 代码块 ============ */
+pre.code, pre.shell {
+  position: relative; background: #282a36; color: #f8f8f2;
+  border-radius: 10px; padding: 15px 18px 15px 20px; margin: 14px 0 6px;
+  font-size: 12.5px; line-height: 1.62; overflow-x: auto;
+  border: 1px solid #1f2130; box-shadow: 0 3px 10px rgba(20,24,40,.25);
+}
+pre.code .ln, pre.shell .ln { display:block; color:#5b6272; text-align:right;
+  margin-right:14px; user-select:none; float:left; min-width:2.2em; }
+.lang-tag {
+  position: absolute; top: 0; right: 0; font-size: 10.5px; letter-spacing: 1px;
+  color: #8b93a8; background: #21222c; border-radius: 0 10px 0 8px; padding: 3px 10px;
+  text-transform: uppercase; font-family: Consolas, monospace;
+}
+pre.code code, pre.shell code { background: none; border: none; padding: 0; color: inherit; }
+
+/* ============ 表格 ============ */
+table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 13.5px; }
+th { background: #1e3a8a; color: #fff; font-weight: 600; text-align: left; }
+th, td { border: 1px solid #d9dfea; padding: 7px 11px; vertical-align: top; line-height: 1.55; }
+tbody tr:nth-child(even) td { background: #f6f8fc; }
+caption { caption-side: top; font-size: 12.5px; color: #6b7280; padding-bottom: 5px; text-align: left; }
+/* 宽表（六协议总对照）：降字号 + 固定布局，保证任何列都不撑出版心 */
+table.wide { font-size: 10px; table-layout: fixed; }
+table.wide th, table.wide td { padding: 4px 5px; overflow-wrap: anywhere; }
+table.wide th:first-child, table.wide td:first-child { width: 11%; }
+
+/* ============ 图 ============ */
+figure.fig { margin: 18px 0; text-align: center; }
+figure.fig svg { max-width: 100%; height: auto; background: #fff; }
+figcaption { font-size: 12.5px; color: #6b7280; margin-top: 7px; }
+figcaption b { color: #374151; }
+
+/* ============ 提示框 ============ */
+.tip, .warn, .note { border-radius: 9px; padding: 11px 16px; margin: 14px 0; font-size: 14px; }
+.tip { background: #ecfdf5; border: 1px solid #a7f3d0; border-left: 5px solid #10b981; }
+.warn { background: #fef2f2; border: 1px solid #fecaca; border-left: 5px solid #ef4444; }
+.note { background: #eff6ff; border: 1px solid #bfdbfe; border-left: 5px solid #3b82f6; }
+.tip, .warn, .note { overflow-wrap: anywhere; }
+
+/* ============ 目录 ============ */
+.toc-part { font-size: 17px; font-weight: 700; color: #4f6af0; margin: 26px 0 8px;
+  padding: 8px 14px; background: #eef2ff; border-radius: 8px; }
+.toc-line { display: flex; align-items: baseline; padding: 3.5px 6px; font-size: 14px; }
+.toc-line a { color: #24292f; }
+.toc-line:hover { background: #f4f6fb; border-radius: 6px; }
+.toc-line .dots { flex: 1; border-bottom: 1.5px dotted #b9c2d0; margin: 0 8px; min-width: 24px; }
+.toc-line .n { color: #6b7280; font-size: 12.5px; }
+.toc-line.lv3 { padding-left: 34px; font-size: 13px; color: #4b5563; }
+
+/* ============ 封面 ============ */
+.cover { text-align: center; margin-top: 96px; margin-bottom: 40px; }
+.cover .glyph { font-size: 13px; letter-spacing: 6px; color: #6b7280; }
+.cover h1.ct {
+  font-size: 46px; color: #101828; margin: 18px 0 8px; letter-spacing: 2px; font-weight: 800;
+}
+.cover .cs { font-size: 19px; color: #1e3a8a; margin-bottom: 6px; }
+.cover .cv { display:inline-block; font-size: 13.5px; color:#4f6af0; background:#eef2ff;
+  border:1px solid #c7d2fe; padding:4px 18px; border-radius:999px; margin-top: 10px; }
+.cover .cd { font-size: 14.5px; color: #475569; margin: 18px auto 0; max-width: 640px; line-height: 1.9; }
+.chips { margin: 26px auto 0; max-width: 700px; }
+.chip { display: inline-block; font-size: 12.5px; color: #334155; background: #f1f5f9;
+  border: 1px solid #dbe3ee; border-radius: 999px; padding: 4px 13px; margin: 4px 3px; }
+.cover .rule { width: 130px; height: 4px; background: linear-gradient(90deg,#4f6af0,#10b981);
+  border-radius: 2px; margin: 26px auto 0; }
+.cover .meta { margin-top: 30px; font-size: 13px; color: #6b7280; line-height: 2; }
+
+/* ============ 打印 ============ */
+@media print {
+  @page { size: A4; margin: 13mm 14mm 16mm 14mm; }
+  html, body { background: #fff !important; font-size: 15px; }
+  .sidebar, .topbar { display: none !important; }
+  .wrap { margin-left: 0; }
+  .content {
+    max-width: none; margin: 0; padding: 0; border: none; border-radius: 0; box-shadow: none;
+  }
+  body { overflow-wrap: anywhere; }
+  /* 表格内改用 break-word：恢复列最小内容宽度，避免窄列把标识符/数字从中间切断 */
+  table, tbody, thead, tr, td, th { overflow-wrap: break-word; word-break: normal; }
+  td code, th code { overflow-wrap: break-word; }
+  pre.code, pre.shell { overflow-wrap: anywhere; white-space: pre-wrap; overflow: clip;
+    box-shadow: none; font-size: 12.5px; }
+  h2.ch { break-before: page; break-after: avoid; }
+  h3, h4 { break-after: avoid; }
+  figure.fig { break-inside: avoid; }
+  figcaption { break-before: avoid; }
+  table { break-inside: auto; }
+  table.wide { font-size: 7.5pt; table-layout: fixed; }
+  table.wide th, table.wide td { overflow-wrap: anywhere; padding: 3pt 4pt; }
+  tr, th, td { break-inside: avoid; }
+  thead { break-after: avoid; }
+  .tip, .warn, .note { break-inside: avoid; }
+  p, li { orphans: 2; widows: 2; }
+  a { color: inherit; text-decoration: none; }
+  .cover { margin-top: 130pt; margin-bottom: 10pt; }
+  h2#toc-h { break-before: page; }
+  .toc-page h2.ch { break-before: auto; }
+  .cover h1.ct { font-size: 30pt; }
+  .cover .cs { font-size: 15pt; }
+  .chips { max-width: 620px; }
+  .chip { font-size: 9.5pt; padding: 2.5pt 9pt; margin: 2.5pt 2pt; }
+  .toc-page h2.ch, h2#toc-h { break-before: page; }
+}
+</style>
+
+<div class="cover">
+  <!-- 封面区：每本书唯一需要手改的地方（样式类名保持不变） -->
+  <div class="glyph">TOPIC · KEYWORDS · HERE</div>
+  <h1 class="ct">{{BOOK_TITLE}}</h1>
+  <div class="cs">{{BOOK_SUBTITLE}}</div>
+  <div class="cv">基线标签 · 一句话卖点</div>
+  <div class="cd">
+    三到五句内容简介：本书以什么为底本，从什么讲到什么，
+    覆盖哪些主题，给出什么方法。印刷页宽约 42 字/行，控制在此范围。
+  </div>
+  <div class="rule"></div>
+  <div class="chips">
+    <span class="chip">知识点一</span><span class="chip">知识点二</span><span class="chip">知识点三</span><span class="chip">知识点四</span><span class="chip">知识点五</span><span class="chip">知识点六</span>
+  </div>
+  <div class="meta">
+    手绘 SVG 插图 · 构建期 Pygments Dracula 代码高亮 · HTML + PDF 双版本<br>
+    {{YEAR}} 年 {{MONTH}} 月 · 全书 {{N_PARTS}} 篇 {{NCH}} 章 + {{NAPX}} 附录
+  </div>
+</div>

@@ -1,0 +1,10 @@
+# 构建产物
+_smoke/
+__pycache__/
+*.pyc
+
+# 各书籍工程的中间产物（若把书工程放进本仓库）
+_part*.html
+_p[12].pdf
+_toc_pages.json
+_shots/
